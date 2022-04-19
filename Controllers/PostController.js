@@ -1,11 +1,10 @@
-import Post from "./Post.js";
-import PostService from "./PostService.js";
+import PostService from "../Services/PostService.js";
 
 class PostController{
     static async create(req, res) {
         try {
-            const post = await PostService.create(req.body)
-            res.json(post)
+            const newPost = await PostService.create(req.body)
+            res.json(newPost)
         }
         catch (e) {
             res.status(500).json(e)
@@ -14,7 +13,9 @@ class PostController{
 
     static async getAll(req, res) {
         try {
-            const posts = await PostService.getAll()
+            const query = req.query
+            const [posts, totalCount] = await PostService.getAll(query.limit, query.page)
+            res.header("X-Total-Count", totalCount)
             return res.json(posts)
         }
         catch (e) {
@@ -22,9 +23,10 @@ class PostController{
         }
     }
 
+
+
     static async getOne(req, res) {
         try {
-
             const post = await PostService.getOne(req.params.id)
             return res.json(post)
         }

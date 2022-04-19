@@ -1,4 +1,4 @@
-import Post from "./Post.js";
+import Post from "../Models/Post.js";
 
 class PostService {
     static async create(post) {
@@ -6,9 +6,10 @@ class PostService {
         return createdPost
     }
 
-    static async getAll() {
-        const posts = await Post.find();
-        return posts
+    static async getAll(limit, page) {
+        const posts = await Post.find().skip(limit*(page-1)).limit(limit)
+        const totalCount = await Post.find().count()
+        return [posts,totalCount]
     }
 
     static async getOne(id) {
