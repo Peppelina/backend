@@ -3,8 +3,6 @@ import mongoose from "mongoose";
 import PostRouter from "./Routes/PostRouter.js";
 import {cors} from "./middleware/CORS-middleware.js"
 import AuthRouter from "./Routes/AuthRouter.js";
-import User from "./Models/User.js";
-import Role from "./Models/Role.js";
 
 const PORT = 5000
 const DB_URL = `mongodb+srv://root:root@cluster0.iomjm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`

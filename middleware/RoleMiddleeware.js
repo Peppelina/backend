@@ -11,10 +11,10 @@ export const RoleMiddleware = (roles) => {
             if (!token)
                 return res.status(403).json({ message: "Пользователь не авторизован"})
 
-            const {roles: userRoles} = jwt.verify(token, config.secretKey, undefined, undefined)
+            const {roles: userRoles} = jwt.verify(token, config.secretKey)
             let hasRole = false
             userRoles.forEach(role => {
-                if (roles.includes(role))
+                if (roles.includes(role)) /*содержится роль в списке разршенных ролей*/
                     hasRole = true
             })
             if (!hasRole)
